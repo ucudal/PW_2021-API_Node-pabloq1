@@ -1,0 +1,34 @@
+{
+    "job-experience": [
+        {
+            "meli": {
+                "title": "Mercado Libre",
+                "position": "iOS Developer",
+                "description": "Under construction... come back later! :)",
+                "startDate": "",
+                "endDate": ""
+            },
+            "orange": {
+                "title": "OrangeLoops",
+                "position": "Mobile Developer",
+                "description": "Worked with custom styling in white-label Objective-C apps and Unit and UI testing using Xcode. Usage of versioning tools.",
+                "startDate": "",
+                "endDate": ""
+            },
+            "kpmg": {
+                "title": "KPMG Uruguay",
+                "position": "Junior IT Analyst",
+                "description": "Worked with RPA automation tools such as Automation Anywhere, UI Path and WorkFusion development tools, for projects meant for Uruguayan technological and accounting companies.\n Functional Testing and helped in the design of Javascript websites.\n Data Analytics using IDEA Software and Python developed scripts.",
+                "startDate": "",
+                "endDate": ""
+            },
+            "thinkup": {
+                "title": "ThinkUp Software",
+                "position": "iOS Developer",
+                "description": "Mostly working with iOS mobile apps using Swift and Objective-C refactoring.\n Solid understanding of object-oriented programming.\n Knowledge of memory management and multi-threading.\n Good sense of UI design and user-oriented focus, with an understanding of Apple’s design principles and interface guidelines.\n Experience with code versioning tools (Git).",
+                "startDate": "",
+                "endDate": ""
+            }
+        }
+    ]
+}
