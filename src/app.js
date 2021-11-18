@@ -1,40 +1,52 @@
 const express = require('express');
 const app = express();
-const cors = require("cors")
-const data = require('../data/jobs.json')
-const jobs = data['job-experience'][0]
+const cors = require("cors");
+const data = require('../data/jobs.json');
+const jobs = data["job-experience"];
 
-app.use(cors())
+app.use(cors({ 
+  origin:true, 
+  credentials:true,
+  sameSite: 'none' 
+}));
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Select a job!' })
-})
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000")
+    res.header("Access-Control-Allow-Credentials", true)
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    next()
+});
 
-app.get('/meli', (req, res) => {
-    jobs.meli.startDate = new Date("02-08-2021").toLocaleDateString('en-GB')
-    res.status(200).json( jobs.meli )
-})
-  
-app.get('/orange', (req, res) => {
-    jobs.orange.startDate = new Date("04-19-2021").toLocaleDateString('en-GB')
-    jobs.orange.endDate = new Date("07-31-2021").toLocaleDateString('en-GB')
-    res.status(200).json( jobs.orange )
-})
+app.use(express.json());
 
-app.get('/kpmg', (req, res) => {
-    jobs.kpmg.startDate = new Date("05-04-2019").toLocaleDateString('en-GB')
-    jobs.kpmg.endDate = new Date("01-31-2020").toLocaleDateString('en-GB')
-    res.status(200).json( jobs.kpmg )
-})
+app.post('/', (req, res) => {
+  let data = req.body.data
+  if (data.name === undefined) {
+    res.status(400).json({ message: "Missing contact name or company"})
+  } else {
+    res.cookie("PW_2021-CV_Contacto", data.name, {
+      secure: process.env.NODE_ENV !== "development",
+      httpOnly: true,
+      sameSite: 'none'
+    })
+    res.status(200).json({ message: `Thank you ${ data.name } for contacting me! I'll be in touch.`})
+  }
+});
 
-app.get('/thinkup', (req, res) => {
-    jobs.thinkup.startDate = new Date("03-02-2020").toLocaleDateString('en-GB')
-    jobs.thinkup.endDate = new Date("04-16-2021").toLocaleDateString('en-GB')
-    res.status(200).json( jobs.thinkup )
-})
+jobs.forEach((job) => { 
+  app.get(`/${job.id}`, (req, res) => {
+    job.startDate = new Date(job.startDate).toLocaleDateString('es-UY')
 
-app.listen(process.env.PORT || 3000, (a) => {
-  console.log("Servidor disponible en http://localhost:3000")
+    if (job.endDate !== undefined) {
+      job.endDate = new Date(job.endDate).toLocaleDateString('es-UY')
+    }
+
+    res.status(200).json( job )
+  })
+});
+
+app.listen(process.env.PORT || 3001, (a) => {
+  console.log("Servidor disponible en http://localhost:3001")
 });
  
 module.exports = app;
